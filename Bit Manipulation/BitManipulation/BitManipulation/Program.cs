@@ -16,7 +16,9 @@ namespace BitManipulation
             //GetInput(ref i,ref pos);
             GetInput(out i, out pos);
 
-            bool result = GetBit(i, pos);
+            //bool result = GetBit(i, pos);
+           // bool result = SetBit(i, pos);
+            bool result = ClearBit(i, pos);
 
             if (result)
                 Console.WriteLine("Bit is Set");
@@ -25,6 +27,24 @@ namespace BitManipulation
             Console.ReadKey();
 
 
+
+        }
+
+        private static bool ClearBit(int i, int pos)
+        {
+            //throw new NotImplementedException();
+            int mask = 1 << pos;
+            mask = ~mask;
+            return ((i ^ (i & mask)) != 0);
+        }
+
+        private static bool SetBit(int i, int pos)
+        {
+            //throw new NotImplementedException();
+            int mask = 1 << pos;
+            //i |= mask;
+
+            return ((i ^ (i | mask)) != 0); //OR with mask will sent the bit, then xor with self to get this is see if  the bit indeed got set
 
         }
 

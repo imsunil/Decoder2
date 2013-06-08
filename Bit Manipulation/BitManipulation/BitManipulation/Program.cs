@@ -20,15 +20,117 @@ namespace BitManipulation
            // bool result = SetBit(i, pos);
             bool result = ClearBit(i, pos);
 
-            if (result)
-                Console.WriteLine("Bit is Set");
-            else
-                Console.WriteLine("Bit is Not Set");
+
+            // ClearPOStoMSB(i,pos);
+
+            // ClearLSBtoPOS(i, pos);
+
+
+
+            SwapOddEvenBits(i);
+
+
+
+
+            //if (result)
+
+            // Console.WriteLine("Bit is Set");
+
+            //else
+
+            // Console.WriteLine("Bit is Not Set");
+
+            //Console.ReadKey();
+
+
+
+
+        }
+
+        private static void SwapOddEvenBits(int i)
+        {
+
+
+            //throw new NotImplementedException();
+
+            int num = (((i & 0xAAAA) >> 1) | ((i & 0x5555) << 1));
+
+            //Console.ReadKey();
+
+            // Next try to display bits of original number and shifted number so, the method is from internet so try to understand
+
+            //int num = 7;
+
+
+
+            ShowInBinary(0x5);
+
+
+            Console.WriteLine();
+
+
+
+            ShowInBinary(0xA);
+
+
+
+        }
+
+
+        private static void ShowInBinary(int num)
+        {
+
+
+            for (int i = 31; 0 <= i; --i)
+
+                Console.Write(((num >> i) & 1) == 0 ? "0 " : "1 ");
+
             Console.ReadKey();
 
 
 
         }
+
+
+        private static void ClearLSBtoPOS(int i, int pos)
+        {
+
+
+            //throw new NotImplementedException();
+
+            int mask = (1 << pos) - 1;
+
+            mask = ~mask;
+
+            i &= mask;
+
+            Console.WriteLine(i);
+
+            Console.ReadKey();
+
+
+
+        }
+
+
+        private static void ClearPOStoMSB(int i, int pos)
+        {
+
+
+            // throw new NotImplementedException();
+
+            int mask = (1 << pos) - 1;
+
+            i &= mask;
+
+            Console.WriteLine(i);
+
+            Console.ReadKey();
+
+
+
+        }
+
 
         private static bool ClearBit(int i, int pos)
         {

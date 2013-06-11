@@ -23,7 +23,7 @@ namespace My_Linked_Lists
         private static void CreateLinkedList(LinkedList MyLinkedList)
         {
             //throw new NotImplementedException();
-            Console.WriteLine("Please enter the elements of a Linked List, \np to print, \nl to get length, \nc to make circular,\nn to get nth node from last, \nq to exit.");
+            Console.WriteLine("Please enter the elements of a Linked List, \np to print, \nl to get length, \nc to make circular,\nn to get nth node from last,\nP? Is List a Palindrome? \nq to exit.");
            
             while (true)
             {
@@ -61,6 +61,47 @@ namespace My_Linked_Lists
                       case "i":
                             {
                                //intersect 2 linked list at given node in 1 tail of 2nd should point to given node of 1
+
+                                break;
+                            }
+                      case "P?":
+                            {
+                                //If a given linked list is simple palindrome
+                                Node middleNode = GetMiddleNode(MyLinkedList);
+                                
+                                LinkedList MyLinkedList2 = new LinkedList();
+                                MyLinkedList2.head = middleNode.next;
+                                //MyLinkedList2.tail = middleNode.next;
+                                //MyLinkedList2.Print();
+                                MyLinkedList2.Reverse();
+
+                                MyLinkedList.tail = middleNode;
+
+                                middleNode.next = null;
+
+                                bool isPalindrome = true;
+
+                                isPalindrome = CheckforPalindrome(MyLinkedList.head, MyLinkedList2.head);
+
+                                if (isPalindrome)
+                                {
+                                    Console.WriteLine("Linked List is a Palindrome.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Linked List is not a Palindrome.");
+                                }
+
+
+                                MyLinkedList2.Reverse();
+                                MyLinkedList2.Print();
+                                MyLinkedList.tail.next = MyLinkedList2.head;
+                                MyLinkedList.tail = MyLinkedList2.tail;
+
+
+                                Console.WriteLine("The original Linked List is : ");
+                                MyLinkedList.Print();
+
 
                                 break;
                             }
@@ -117,6 +158,54 @@ namespace My_Linked_Lists
                     }
             }
           
+        }
+
+        private static bool CheckforPalindrome(Node head1, Node head2)
+        {
+            //guard clauses
+            Node front = head1;
+            Node temp = head2;
+
+            Console.WriteLine("Starting Values are: " + front.Data + " " + temp.Data);
+            bool isPalindrome = true;
+            while (front != null)
+            {
+                if (front.Data != temp.Data)
+                {
+                    isPalindrome= false;
+                    break;
+                }
+                front = front.next;
+                temp = temp.next;
+                if (temp == null)
+                    break;
+            }
+            return isPalindrome;
+        }
+
+        private static Node GetMiddleNode(LinkedList MyLinkedList)
+        {
+            //throw new NotImplementedException();
+            Node front = MyLinkedList.head;
+            Node back = MyLinkedList.head;
+            bool alt = true;
+            while(front!=null)
+            {
+            if (alt)
+            {
+                front= front.next;
+                alt = false;
+            }
+            else
+            {
+                front =front.next;
+                back=back.next;
+                alt = true;
+            }
+           // alt=false;
+            }
+            Console.WriteLine("Middle node is : "+back.Data);
+            return back;
         }
     }
 }

@@ -58,6 +58,44 @@ namespace My_Linked_Lists
                               
                                 break;
                             }
+                      case "ci":
+                            {
+                                //create interecting list
+                                LinkedList LinkedList2 = new LinkedList();
+                                Console.WriteLine("Enter elements for 2nd lnked list, -1 to end.");
+                                int i;
+                                while (true)
+                                {
+                                    i = Convert.ToInt32(Console.ReadLine());
+                                    if (i != -1)
+                                    {
+                                        LinkedList2.AddHead(i);
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+
+                                }
+                                
+                                i= MyLinkedList.GetLength();
+                                Console.WriteLine("Enter a number between 1 and " +i);
+                                int nodenumber = Convert.ToInt32(Console.ReadLine());
+                                i =0;
+                                Node temp = MyLinkedList.head;
+
+                                while (i <= nodenumber)
+                                {
+                                    temp = temp.next;
+                                    i++;
+                                }
+                                LinkedList2.tail.next = temp;
+                                LinkedList2.tail = MyLinkedList.tail;
+
+                                LinkedList2.Print();
+
+                                break;
+                            }
                       case "i":
                             {
                                //intersect 2 linked list at given node in 1 tail of 2nd should point to given node of 1

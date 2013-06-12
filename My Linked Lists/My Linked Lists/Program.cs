@@ -10,8 +10,8 @@ namespace My_Linked_Lists
         static void Main(string[] args)
         {
             LinkedList MyLinkedList = new LinkedList();
-
-            CreateLinkedList(MyLinkedList);
+            LinkedList LinkedList2 = new LinkedList();
+            CreateLinkedList(MyLinkedList,LinkedList2);
             
 
         }
@@ -20,7 +20,7 @@ namespace My_Linked_Lists
 
        
 
-        private static void CreateLinkedList(LinkedList MyLinkedList)
+        private static void CreateLinkedList(LinkedList MyLinkedList, LinkedList LinkedList2)
         {
             //throw new NotImplementedException();
             Console.WriteLine("Please enter the elements of a Linked List, \np to print, \nl to get length, \nc to make circular,\nn to get nth node from last,\nP? Is List a Palindrome? \nq to exit.");
@@ -61,7 +61,7 @@ namespace My_Linked_Lists
                       case "ci":
                             {
                                 //create interecting list
-                                LinkedList LinkedList2 = new LinkedList();
+                                //LinkedList LinkedList2 = new LinkedList();
                                 Console.WriteLine("Enter elements for 2nd lnked list, -1 to end.");
                                 int i;
                                 while (true)
@@ -77,14 +77,16 @@ namespace My_Linked_Lists
                                     }
 
                                 }
-                                
+
+                                LinkedList2.Print();
+
                                 i= MyLinkedList.GetLength();
                                 Console.WriteLine("Enter a number between 1 and " +i);
                                 int nodenumber = Convert.ToInt32(Console.ReadLine());
                                 i =0;
                                 Node temp = MyLinkedList.head;
 
-                                while (i <= nodenumber)
+                                while (i < nodenumber)
                                 {
                                     temp = temp.next;
                                     i++;
@@ -96,9 +98,50 @@ namespace My_Linked_Lists
 
                                 break;
                             }
-                      case "i":
+                      case "i?":
                             {
-                               //intersect 2 linked list at given node in 1 tail of 2nd should point to given node of 1
+                               //DO 2 linked lists intersect if so where
+
+                                int len1 = MyLinkedList.GetLength();
+                                int len2 = LinkedList2.GetLength();
+
+                                int diff;
+                                Node start1 = MyLinkedList.head;
+                                Node start2 = LinkedList2.head;
+
+                                if (len1 >= len2)
+                                {
+                                    diff = len1 - len2;
+                                    for(int n=0;n<diff;n++)
+                                    {
+                                    start1=start1.next;
+                                    }
+                                }
+                                else
+                                {
+                                    diff=len2-len1;
+                                     for(int n=0;n<diff;n++)
+                                    {
+                                    start2=start2.next;
+                                    }
+                                }
+                                
+                                while(start1 !=null)
+                                {
+                                if (start1 == start2)
+                                {
+                                    Console.WriteLine("Lists intersect at :"+start1.Data);
+                                    break;
+                                }
+                                else
+                                {
+                                    start1=start1.next;
+                                    start2=start2.next;
+                                }
+                                
+
+                                }
+                                Console.WriteLine("Lists do not intersect.");
 
                                 break;
                             }

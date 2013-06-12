@@ -23,7 +23,7 @@ namespace My_Linked_Lists
         private static void CreateLinkedList(LinkedList MyLinkedList, LinkedList LinkedList2)
         {
             //throw new NotImplementedException();
-            Console.WriteLine("Please enter the elements of a Linked List, \np to print, \nl to get length, \nc to make circular,\nn to get nth node from last,\nP? Is List a Palindrome? \nq to exit.");
+            Console.WriteLine("Please enter the elements of a Linked List, \np to print, \nl to get length, \nc to make circular,\nci to create intersecting lists,\ni? to check if 2 linked lists intersect,\nn to get nth node from last,\nP? Is List a Palindrome? \nq to exit.");
            
             while (true)
             {
@@ -58,43 +58,40 @@ namespace My_Linked_Lists
                               
                                 break;
                             }
+                      case "dd":
+                            {
+                                //deduplicate
+
+                                break;
+                            }
+                      case "z":
+                            {
+                                //zip merge
+
+                                break;
+                            }
+                      case "a":
+                            {
+                                //create additional linked list
+                                LinkedList2 = MakeNewLinkedList(LinkedList2);
+                                break;
+                            }
+                      case "sm":
+                            {
+                                //create additional linked list
+                                LinkedList2.head = SortedMerge(MyLinkedList.head,LinkedList2.head);
+                                LinkedList2.Print();
+                                break;
+                            }
                       case "ci":
                             {
                                 //create interecting list
                                 //LinkedList LinkedList2 = new LinkedList();
-                                Console.WriteLine("Enter elements for 2nd lnked list, -1 to end.");
-                                int i;
-                                while (true)
-                                {
-                                    i = Convert.ToInt32(Console.ReadLine());
-                                    if (i != -1)
-                                    {
-                                        LinkedList2.AddHead(i);
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
 
-                                }
+                                LinkedList2 = MakeNewLinkedList(LinkedList2);
 
-                                LinkedList2.Print();
-
-                                i= MyLinkedList.GetLength();
-                                Console.WriteLine("Enter a number between 1 and " +i);
-                                int nodenumber = Convert.ToInt32(Console.ReadLine());
-                                i =0;
-                                Node temp = MyLinkedList.head;
-
-                                while (i < nodenumber)
-                                {
-                                    temp = temp.next;
-                                    i++;
-                                }
-                                LinkedList2.tail.next = temp;
-                                LinkedList2.tail = MyLinkedList.tail;
-
-                                LinkedList2.Print();
+                                IntersectLists(MyLinkedList, LinkedList2);
+                                
 
                                 break;
                             }
@@ -239,6 +236,77 @@ namespace My_Linked_Lists
                     }
             }
           
+        }
+
+        private static Node SortedMerge(Node node1, Node node2)
+        {
+            //throw new NotImplementedException();
+            Node result = null;
+            //guardclause
+            if(node1 ==null)
+            {
+                return node2;
+            }
+            if(node2==null)
+            {
+                return node1;
+            }
+
+            if(node1.Data < node2.Data)
+            {
+                result = node1;
+                result.next = SortedMerge(node1.next, node2);
+            }
+            else
+            {
+                result = node2;
+                result.next = SortedMerge(node1, node2.next);
+            }
+            return result;
+        }
+
+        private static void IntersectLists(LinkedList MyLinkedList, LinkedList LinkedList2)
+        {
+            //throw new NotImplementedException();
+            int i;
+            i = MyLinkedList.GetLength();
+            Console.WriteLine("Enter a number between 1 and " + i);
+            int nodenumber = Convert.ToInt32(Console.ReadLine());
+            i = 0;
+            Node temp = MyLinkedList.head;
+
+            while (i < nodenumber)
+            {
+                temp = temp.next;
+                i++;
+            }
+            LinkedList2.tail.next = temp;
+            LinkedList2.tail = MyLinkedList.tail;
+
+            LinkedList2.Print();
+        }
+
+        private static LinkedList MakeNewLinkedList(LinkedList LinkedList2)
+        {
+            //throw new NotImplementedException();
+            Console.WriteLine("Enter elements for 2nd lnked list, -1 to end.");
+            int i;
+            while (true)
+            {
+                i = Convert.ToInt32(Console.ReadLine());
+                if (i != -1)
+                {
+                    LinkedList2.AddHead(i);
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+
+            LinkedList2.Print();
+            return LinkedList2;
         }
 
         private static bool CheckforPalindrome(Node head1, Node head2)

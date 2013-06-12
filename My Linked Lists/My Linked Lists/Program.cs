@@ -67,7 +67,15 @@ namespace My_Linked_Lists
                       case "z":
                             {
                                 //zip merge
-
+                                Node mid = GetMiddleNode(MyLinkedList);
+                                LinkedList2.head = mid.next;
+                                mid.next = null;
+                                LinkedList2.Reverse();
+                                LinkedList2.Print();
+                                bool alt = true;
+                                mid = zipMerge(MyLinkedList.head, LinkedList2.head,alt);
+                                MyLinkedList.head = mid;
+                                MyLinkedList.Print();
                                 break;
                             }
                       case "a":
@@ -261,6 +269,35 @@ namespace My_Linked_Lists
             {
                 result = node2;
                 result.next = SortedMerge(node1, node2.next);
+            }
+            return result;
+        }
+
+        private static Node zipMerge(Node node1, Node node2,bool alt)
+        {
+            //throw new NotImplementedException();
+            Node result = null;
+            //guardclause
+            if (node1 == null)
+            {
+                return node2;
+            }
+            if (node2 == null)
+            {
+                return node1;
+            }
+            
+            if (alt)
+            {
+                result = node1;
+                alt = false;
+                result.next = zipMerge(node1.next, node2,alt);
+            }
+            else
+            {
+                result = node2;
+                alt = true;
+                result.next = zipMerge(node1, node2.next,alt);
             }
             return result;
         }

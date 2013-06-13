@@ -37,6 +37,20 @@ namespace My_Linked_Lists
         public void AddTail(int data)
         {
             Node temp = new Node(data);
+            //need to add logic to handle if tail is null
+            if (tail == null)
+            {
+                head = temp;
+                tail = head;
+            }
+            else
+            {
+                tail.next = temp;
+                tail = temp;
+            }
+            return;
+
+
 
             tail.next = temp;
             tail = temp;

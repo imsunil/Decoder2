@@ -196,6 +196,12 @@ namespace My_Linked_Lists
                                 //where do cyclicals meet?
                                 break;
                             }
+                      case "add":
+                            {
+                                //add 2 linked lists
+                                LinkedList result = AddLinkedLists(MyLinkedList.head, LinkedList2.head);
+                                break;
+                            }
                       case "r":
                             {
                                 MyLinkedList.Reverse();
@@ -246,6 +252,54 @@ namespace My_Linked_Lists
           
         }
 
+        private static LinkedList AddLinkedLists(Node node1, Node node2)
+        {
+            //throw new NotImplementedException();
+            LinkedList List3 = new LinkedList();
+            if (node1==null)
+            {
+                List3.head = node2;
+                return List3;
+            }
+
+            if(node2==null)
+            {
+                List3.head = node1;
+                return List3;
+            }
+            //LinkedList List3= new LinkedList();
+            int carry =0;
+            int addValue=0;
+            Node temp1=node1;
+            Node temp2=node2;
+
+           while ((temp1.next !=null) ||(temp2.next!=null))
+                {
+
+                int value=carry;
+
+                if(temp1!=null) 
+                {
+                value = value +temp1.Data;
+                }
+                if(temp2!=null)
+                {
+                value =value+temp2.Data;
+                }
+                addValue=value % 10;
+
+                if (value >= 10)
+                {
+                    carry = 1;
+                }
+                else carry = 0;
+
+                List3.AddTail(addValue);
+
+                }
+           return List3;
+         }
+
         private static Node SortedMerge(Node node1, Node node2)
         {
             //throw new NotImplementedException();
@@ -259,7 +313,7 @@ namespace My_Linked_Lists
             {
                 return node1;
             }
-
+            Console.WriteLine(node1.Data + " " + node2.Data);
             if(node1.Data < node2.Data)
             {
                 result = node1;
@@ -277,6 +331,7 @@ namespace My_Linked_Lists
         {
             //throw new NotImplementedException();
             Node result = null;
+            Console.WriteLine(node1.Data + " " + node2.Data);
             //guardclause
             if (node1 == null)
             {
